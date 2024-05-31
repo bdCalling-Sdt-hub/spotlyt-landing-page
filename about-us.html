@@ -1,41 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us - Spotlyt Task App</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 text-gray-800">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 text-gray-800">
     <div class="max-w-4xl mx-auto p-6">
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-blue-600">Spotlyt Task App</h1>
-            <p class="text-lg mt-2">Empowering South Africans with Opportunities</p>
-        </header>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Our Mission</h2>
-            <p class="leading-relaxed">
-                At Spotlyt, we aim to create a platform where individuals can leverage their skills and time to complete tasks and earn cash rewards. We understand the difficulties many face in finding stable employment, especially young people, and we're dedicated to offering a solution that promotes financial independence and flexibility.
-            </p>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Our Vision</h2>
-            <p class="leading-relaxed">
-                Our vision is to position Spotlyt as the premier platform for companies, entrepreneurs, content creators, and influencers seeking authentic and organic reach for their products and services. We envision Spotlyt as a global brand, starting from South Africa, expanding across the African continent, and eventually reaching audiences worldwide.
-            </p>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Why Spotlyt?</h2>
-            <ul class="list-disc list-inside">
-                <li class="mb-2"><strong>Opportunity:</strong> Spotlyt provides an opportunity for entrepreneurs, businesses, content creators, and influencers to showcase their content and offerings, and it gives the user a chance to complete tasks, and earn rewards on their own terms.</li>
-                <li class="mb-2"><strong>Community:</strong> We believe in fostering a supportive and collaborative community where users can connect, learn, and grow together. Join our growing <a href="https://whatsapp.com/channel/0029VaVhNwK1HspxtgLJra2C" class="text-blue-500">WhatsApp Channel</a> for daily updates.</li>
-                <li class="mb-2"><strong>Innovation:</strong> Through innovative features and a user-friendly interface, Spotlyt strives to deliver an exceptional experience for both task completers and those seeking assistance.</li>
-                <li><strong>Global Reach:</strong> While we begin our journey in South Africa, our long-term goal is to establish Spotlyt as a trusted brand with a global presence, catering to diverse needs and aspirations.</li>
-            </ul>
-        </section>
-        <footer class="text-center mt-8">
-            <p class="text-lg">We would love for you to become part of our community at Spotlyt.</p>
-        </footer>
+      <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold text-blue-600">About Us</h1>
+      </header>
+      <section id="privacy-content" class="mb-8">
+        <!-- The content from the API will be injected here -->
+      </section>
     </div>
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("https://api.spotlyt.co.za/v1/about")
+          .then((response) => response.json())
+          .then((data) => {
+            if (
+              data.code === 200 &&
+              data.data &&
+              data.data.attributes.length > 0
+            ) {
+              const content = data.data.attributes[0].content;
+              document.getElementById("privacy-content").innerHTML = content;
+            } else {
+              document.getElementById("privacy-content").innerHTML =
+                "<p>Failed to load privacy policy content. Please try again later.</p>";
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching privacy policy:", error);
+            document.getElementById("privacy-content").innerHTML =
+              "<p>Error fetching privacy policy content. Please try again later.</p>";
+          });
+      });
+    </script>
+  </body>
 </html>

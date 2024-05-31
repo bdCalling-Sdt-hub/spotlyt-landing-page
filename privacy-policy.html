@@ -1,81 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privacy Policy - Spotlyt Task App</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 text-gray-800">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 text-gray-800">
     <div class="max-w-4xl mx-auto p-6">
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-blue-600">Privacy Policy</h1>
-            <p class="text-lg mt-2">Your privacy is important to us at Spotlyt Task App.</p>
-        </header>
-        <section class="mb-8">
-            <p class="leading-relaxed">
-                This Privacy Policy outlines how we collect, use, disclose, and protect your personal information. Please read this policy carefully before using our services.
-            </p>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">1. Information We Collect</h2>
-            <ul class="list-disc list-inside">
-                <li class="mb-2"><strong>Personal Information:</strong> When you sign up for Spotlyt Task App, we collect information such as your email address, physical address (optional), National Identity Document (NID) number, and user interests.</li>
-                <li><strong>Non-Stored Information:</strong> We do not store banking information used for withdrawals. This includes bank name, bank type, and bank account number.</li>
-            </ul>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">2. Use of Information</h2>
-            <ul class="list-disc list-inside">
-                <li class="mb-2"><strong>Email Address:</strong> We may use your email address to send you important notifications, updates about our services, and promotional offers.</li>
-                <li class="mb-2"><strong>Address:</strong> Your physical address, if provided, may be used for location-based services or to verify your eligibility to use our app in South Africa.</li>
-                <li class="mb-2"><strong>Identification Number:</strong> Your NID number is used for verification purposes to ensure compliance with our eligibility criteria.</li>
-                <li><strong>User Interests:</strong> We may use information about your interests to personalise your experience on the app and recommend relevant tasks or promotions.</li>
-            </ul>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">3. Data Storage and Security</h2>
-            <ul class="list-disc list-inside">
-                <li class="mb-2"><strong>Stored Information:</strong> Personal information collected, such as email address, address, NID number, and user interests, is securely stored on our servers.</li>
-                <li><strong>Data Protection:</strong> We implement appropriate security measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction.</li>
-            </ul>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">4. Sharing of Information</h2>
-            <ul class="list-disc list-inside">
-                <li class="mb-2"><strong>Third-Party Services:</strong> We may share your personal information with trusted third-party service providers to facilitate app functionality, such as email communications or analytics. These providers are contractually bound to protect your information and only use it for specified purposes.</li>
-                <li><strong>Legal Requirements:</strong> We may disclose personal information if required to comply with legal obligations or respond to lawful requests from authorities.</li>
-            </ul>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">5. User Control and Rights</h2>
-            <ul class="list-disc list-inside">
-                <li class="mb-2"><strong>Access and Update:</strong> You can access and update your personal information through your account settings on Spotlyt Task App.</li>
-                <li><strong>Opt-Out:</strong> You have the right to opt-out of receiving promotional emails by following the instructions in the emails or contacting us directly.</li>
-            </ul>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">6. Applicability</h2>
-            <p class="leading-relaxed">
-                Spotlyt Task App operates exclusively in South Africa. Users must provide a South African NID for verification.
-            </p>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">7. Policy Updates</h2>
-            <ul class="list-disc list-inside">
-                <li class="mb-2"><strong>Notification:</strong> We may update this Privacy Policy periodically and will notify you of any material changes through the app or via email.</li>
-                <li><strong>Consent:</strong> By continuing to use Spotlyt Task App after changes to this Privacy Policy, you consent to the updated terms.</li>
-            </ul>
-        </section>
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">8. Contact Us</h2>
-            <p class="leading-relaxed">
-                If you have any questions, concerns, or requests regarding your privacy or this Privacy Policy, please contact us on WhatsApp +27 67 436 2169.
-            </p>
-        </section>
-        <footer class="text-center mt-8">
-            <p class="text-lg">By using Spotlyt Task App, you acknowledge that you have read, understood, and agreed to this Privacy Policy.</p>
-        </footer>
+      <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold text-blue-600">Privacy Policy</h1>
+      </header>
+      <section id="privacy-content" class="mb-8">
+        <!-- The content from the API will be injected here -->
+      </section>
     </div>
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("https://api.spotlyt.co.za/v1/privacy")
+          .then((response) => response.json())
+          .then((data) => {
+            if (
+              data.code === 200 &&
+              data.data &&
+              data.data.attributes.length > 0
+            ) {
+              const content = data.data.attributes[0].content;
+              document.getElementById("privacy-content").innerHTML = content;
+            } else {
+              document.getElementById("privacy-content").innerHTML =
+                "<p>Failed to load privacy policy content. Please try again later.</p>";
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching privacy policy:", error);
+            document.getElementById("privacy-content").innerHTML =
+              "<p>Error fetching privacy policy content. Please try again later.</p>";
+          });
+      });
+    </script>
+  </body>
 </html>
